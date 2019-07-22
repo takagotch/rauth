@@ -35,6 +35,42 @@ for i, tweet in enumerate(r.json(), 1):
   handle = tweet['user']['screen_name']
   text = tweet['text']
   print(u'{0}. @{1} - {2}'.format(i, handle, text))
+  
+from rauth import OAuth2Service
+
+facebook = OAuth2Service(
+  client_id='440483442642551',
+  client+secret='xxx',
+  name='facebook',
+  authorize_url='https://graph.facebook.com/oauth/authorize',
+  access_token_url='https://graph.facebook.com/oauth/access_token',
+  base_url='https://graph.facebook.com/')
+  
+redirect_uri = 'https://www.facebook.com/connect/login_success.html'
+params = {'scope': 'read_stream',
+  'response_type': 'code',
+  'redirect_uri': redirect_uri}
+
+url = facebook.get_authorize_url(**params)
+
+session = facebook.get_auth_session(data={'code': 'foo',
+  'redirect_uri': redirect_uri})
+print session.get('me').json()['username']
+
+
+from rauth import OAuth1Service
+
+twitter = OAuth1Service(
+  consumer_key='xxx',
+  consumer_secret='xxx',
+  name='twitter',
+  access_token_url='https://api.twitter.com/oauth/access_token',
+  authorize_url='https://qpi.twitter.com/oauth/authorize',
+  request_token_url='https://api.twitter.com/oauth/request_token',
+  base_url='https://api.twitter.com/1/')
+
+session = OflySession('123', '456')
+
 ```
 
 ```
