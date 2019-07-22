@@ -83,6 +83,25 @@ session = OAuth1Session('123',
 r = session.get('http://example/com/api/resource',
   params={'format': 'json'})
 print r.json()
+
+service = OAuth2Service(
+  name='example',
+  client_id='123',
+  client_token_url='456',
+  access_token_url='https://example.com/token',
+  authorize_url='https://example.com/authorize',
+  base_url='https://example.com/api/')
+  
+params = {'redirect_uri': 'http://example.com/',
+  'response_type': 'code'}
+url = service.get_authorize_url(**params)
+  
+data = {'code': 'foobar',
+  'grant_type': 'authorization_code',
+  'redirect_uri': 'http://example.com/'}
+session = service.get_auth_sesseion(data=data)
+
+authorize_url = service.get_authorize_url(request_token)
 ```
 
 ```
