@@ -71,6 +71,18 @@ twitter = OAuth1Service(
 
 session = OflySession('123', '456')
 
+r = session.get('https://example/com/api/resource',
+  params={'format': 'json'})
+print r.json()
+
+session = OAuth1Session('123',
+  '456',
+  access_token='321',
+  access_token_secret='654')
+
+r = session.get('http://example/com/api/resource',
+  params={'format': 'json'})
+print r.json()
 ```
 
 ```
